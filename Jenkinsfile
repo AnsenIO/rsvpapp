@@ -66,6 +66,7 @@ spec:
 //  downloading latest YQ https://github.com/mikefarah/yq/tree/master
             sh "wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64"
 //             sh "tar xvf yq_linux_amd64.tar.gz"
+            sh "chmod +x yq_linux_amd64"
             sh "mv yq_linux_amd64 /usr/bin/yq"
             sh "git checkout -b master"
           dir("rsvpapp-helm-cicd") {

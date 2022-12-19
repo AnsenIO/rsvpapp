@@ -97,6 +97,7 @@ spec:
                   } catch (Exception e) {
                       sh 'echo $e'
                   }
+          }
         }
       }
     }

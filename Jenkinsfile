@@ -84,7 +84,8 @@ spec:
               git add values.yaml
               git commit -m 'Triggered Build'
               git push https://$GIT_CREDS_USR:$GIT_CREDS_PSW@github.com/$GIT_CREDS_USR/rsvpapp-helm-cicd.git
-                try {
+            '''
+            try {
                       sh 'wget https://github.com/argoproj/argo-cd/releases/download/v2.4.2/argocd-linux-amd64'
                       sh 'mv argocd-linux-amd64 argocd'
                       sh 'chmod +x argocd'
@@ -95,8 +96,6 @@ spec:
                   } catch (Exception e) {
                       sh 'echo $e'
                   }
-
-            '''
           }
         }
       }

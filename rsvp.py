@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request,make_response
+from flask import Flask, render_template, redirect, url_for, request
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 import socket
@@ -7,18 +7,20 @@ import json
 
 app = Flask(__name__)
 
-LINK=os.environ.get('LINK', "www.cloudyuga.guru")
-TEXT1=os.environ.get('TEXT1', "CloudYuga")
-TEXT2=os.environ.get('TEXT2', "Garage RSVP")
-LOGO=os.environ.get('LOGO', "https://raw.githubusercontent.com/cloudyuga/rsvpapp/master/static/cloudyuga.png")
-COMPANY=os.environ.get('COMPANY', "CloudYuga Technology Pvt. Ltd.")
+LINK = os.environ.get('LINK', "www.iab.ai")
+TEXT1 = os.environ.get('TEXT1', "IABAI")
+TEXT2 = os.environ.get('TEXT2', "IT Solutions")
+LOGO = os.environ.get('LOGO', "https://www.iab.ai/assets/iabai_logo_small.png")
+COMPANY = os.environ.get('COMPANY', "IABAI SaS")
 
-MONGODB_HOST=os.environ.get('MONGODB_HOST', 'localhost')
+MONGODB_HOST = os.environ.get('MONGODB_HOST', 'localhost')
 client = MongoClient(MONGODB_HOST, 27017)
 db = client.rsvpdata
 
+
 class RSVP(object):
     """Simple Model class for RSVP"""
+
     def __init__(self, name, email, _id=None):
         self.name = name
         self.email = email
@@ -43,8 +45,8 @@ class RSVP(object):
         return [RSVP(**doc) for doc in db.rsvpdata.find()]
 
     @staticmethod
-    def find_one(id):
-        doc = db.rsvpdata.find_one({"_id": ObjectId(id)})
+    def find_one(ids):
+        doc = db.rsvpdata.find_one({"_id": ObjectId(ids)})
         return doc and RSVP(doc['name'], doc['email'], doc['_id'])
 
     @staticmethod
@@ -53,15 +55,17 @@ class RSVP(object):
         result = db.rsvpdata.insert_one(doc)
         return RSVP(name, email, result.inserted_id)
 
+
 @app.route('/')
 def rsvp():
     _items = db.rsvpdata.find()
     items = [item for item in _items]
     count = len(items)
     hostname = socket.gethostname()
-    return render_template('profile.html', counter=count, hostname=hostname,\
-                           items=items, TEXT1=TEXT1, TEXT2=TEXT2, LOGO=LOGO,\
+    return render_template('profile.html', counter=count, hostname=hostname,
+                           items=items, TEXT1=TEXT1, TEXT2=TEXT2, LOGO=LOGO,
                            COMPANY=COMPANY)
+
 
 @app.route('/new', methods=['POST'])
 def new():
@@ -69,10 +73,11 @@ def new():
     db.rsvpdata.insert_one(item_doc)
     return redirect(url_for('rsvp'))
 
+
 @app.route('/api/rsvps', methods=['GET', 'POST'])
 def api_rsvps():
     if request.method == 'GET':
-        docs = [rsvp.dict() for rsvp in RSVP.find_all()]
+        docs = [r.dict() for r in RSVP.find_all()]
         return json.dumps(docs, indent=True)
     else:
         try:
@@ -85,19 +90,20 @@ def api_rsvps():
         if 'email' not in doc:
             return '{"error": "email field is missing"}', 400
 
-        rsvp = RSVP.new(name=doc['name'], email=doc['email'])
-        return json.dumps(rsvp.dict(), indent=True)
+        r = RSVP.new(name=doc['name'], email=doc['email'])
+        return json.dumps(r.dict(), indent=True)
 
-@app.route('/api/rsvps/<id>', methods=['GET', 'DELETE'])
-def api_rsvp(id):
-    rsvp = RSVP.find_one(id)
-    if not rsvp:
+
+@app.route('/api/rsvps/<ids>', methods=['GET', 'DELETE'])
+def api_rsvp(ids):
+    rsvped = RSVP.find_one(ids)
+    if not rsvped:
         return json.dumps({"error": "not found"}), 404
 
     if request.method == 'GET':
-        return json.dumps(rsvp.dict(), indent=True)
+        return json.dumps(rsvped.dict(), indent=True)
     elif request.method == 'DELETE':
-        rsvp.delete()
+        rsvped.delete()
         return json.dumps({"deleted": "true"})
 
 

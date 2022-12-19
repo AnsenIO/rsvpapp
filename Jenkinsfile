@@ -85,6 +85,10 @@ spec:
               git commit -m 'Triggered Build'
               git push https://$GIT_CREDS_USR:$GIT_CREDS_PSW@github.com/$GIT_CREDS_USR/rsvpapp-helm-cicd.git
                 try {
+                      sh 'wget https://github.com/argoproj/argo-cd/releases/download/v2.4.2/argocd-linux-amd64'
+                      sh 'mv argocd-linux-amd64 argocd'
+                      sh 'chmod +x argocd'
+                      sh 'sudo mv argocd /usr/local/bin'
                       sh 'argocd login  argo.iab.ai --username ARGOCD_CREDS_USR --password ARGOCD_CREDS_PSW --grpc-web'
                       sh 'argocd version'
                       sh 'argocd app get rpsvpapp --output json | jq -r ".status.sync.status"'

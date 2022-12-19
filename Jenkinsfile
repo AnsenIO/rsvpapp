@@ -55,6 +55,7 @@ spec:
         GIT_REPO_EMAIL = 'andrea.sannuto@gmx.com'
         GIT_REPO_BRANCH = "master"
         ARGOCD_CREDS = credentials('argocdiabai')
+        ARGOCD_SERVER = 'argo.iab.ai'
        // Update above variables with your user details
       }
       steps {
@@ -89,7 +90,7 @@ spec:
           sh 'mv argocd-linux-amd64 argocd'
           sh 'chmod +x argocd'
           sh 'mv argocd /usr/local/bin'
-          sh 'argocd login  argo.iab.ai --username ARGOCD_CREDS_USR --password ARGOCD_CREDS_PSW --grpc-web'
+          sh 'argocd login  ${env.ARGOCD_SERVER) --username ${env.ARGOCD_CREDS_USR) --password ${env.ARGOCD_CREDS_PSW) --grpc-web'
           sh 'argocd version'
           sh 'argocd app sync rpsvpapp'
           sh 'argocd app get rpsvpapp --output json | jq -r ".status.sync.status"'

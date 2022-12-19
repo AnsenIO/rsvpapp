@@ -29,13 +29,13 @@ spec:
         }
     }
   environment {
-      IMAGE_REPO = "librehw/rsvp"
+      IMAGE_REPO = "registry.iab.ai/rsvp"
       // Instead of DOCKERHUB_USER, use your Dockerhub name
   }
   stages {
     stage('Build') {
       environment {
-        DOCKERHUB_CREDS = credentials('dockerhub')
+        DOCKERHUB_CREDS = credentials('registryiabai')
       }
       steps {
         container('docker') {

@@ -82,19 +82,19 @@ spec:
               cat values.yaml
               pwd
               git add values.yaml
-              git commit -m 'Triggered Build'
+              git commit -m 'Triggered Build env(GIT_COMMIT)'
               git push https://$GIT_CREDS_USR:$GIT_CREDS_PSW@github.com/$GIT_CREDS_USR/rsvpapp-helm-cicd.git
             '''
           }
-//           sh 'wget https://github.com/argoproj/argo-cd/releases/download/v2.4.2/argocd-linux-amd64'
-//           sh 'mv argocd-linux-amd64 argocd'
-//           sh 'chmod +x argocd'
-//           sh 'mv argocd /usr/local/bin'
-//           sh 'argocd login  argo.iab.ai --username ${env.ARGOCD_CREDS_USR) --password ${env.ARGOCD_CREDS_PSW) --grpc-web'
-//           sh 'echo  ${env.ARGOCD_CREDS_USR) '
-//           sh 'argocd version'
-//           sh 'argocd app sync rpsvpapp'
-//           sh 'argocd app get rpsvpapp --output json | jq -r ".status.sync.status"'
+          sh 'wget https://github.com/argoproj/argo-cd/releases/download/v2.4.2/argocd-linux-amd64'
+          sh 'mv argocd-linux-amd64 argocd'
+          sh 'chmod +x argocd'
+          sh 'mv argocd /usr/local/bin'
+          sh 'argocd login  ${env.ARGOCD_SERVER} --username ${env.ARGOCD_CREDS_USR} --password ${env.ARGOCD_CREDS_PSW} --grpc-web'
+          sh 'echo  ${env.ARGOCD_CREDS_USR} ${env.ARGOCD_SERVER} '
+          sh 'argocd version'
+          sh 'argocd app sync rpsvpapp'
+          sh 'argocd app get rpsvpapp --output json | jq -r ".status.sync.status"'
         }
       }
     }

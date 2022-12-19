@@ -49,7 +49,7 @@ spec:
     }
     stage('Deploy') {
       environment {
-        GIT_CREDS = credentials('github')
+        GIT_CREDS = credentials('b009a837-3a84-4d48-811f-5bde4bddf969')
         HELM_GIT_REPO_URL = "github.com/ansenio/rsvpapp-helm-cicd.git"
         GIT_REPO_EMAIL = 'andrea.sannuto@gmx.com'
         GIT_REPO_BRANCH = "master"
@@ -61,8 +61,10 @@ spec:
             sh "git clone https://${env.HELM_GIT_REPO_URL}"
             sh "git config --global user.email ${env.GIT_REPO_EMAIL}"
              // install wq
-            sh "wget https://github.com/mikefarah/yq/releases/download/v4.9.6/yq_linux_amd64.tar.gz"
-            sh "tar xvf yq_linux_amd64.tar.gz"
+//             sh "wget https://github.com/mikefarah/yq/releases/download/v4.9.6/yq_linux_amd64.tar.gz"
+//  downloading latest YQ https://github.com/mikefarah/yq/tree/master
+            sh "wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64"
+//             sh "tar xvf yq_linux_amd64.tar.gz"
             sh "mv yq_linux_amd64 /usr/bin/yq"
             sh "git checkout -b master"
           dir("rsvpapp-helm-cicd") {

@@ -65,7 +65,7 @@ spec:
              // install wq
 //             sh "wget https://github.com/mikefarah/yq/releases/download/v4.9.6/yq_linux_amd64.tar.gz"
 //  downloading latest YQ https://github.com/mikefarah/yq/tree/master
-            sh "wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64"
+            sh "wget -q https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64"
 //             sh "tar xvf yq_linux_amd64.tar.gz"
             sh "chmod +x yq_linux_amd64"
             sh "mv yq_linux_amd64 /usr/bin/yq"
@@ -86,7 +86,7 @@ spec:
               git push https://$GIT_CREDS_USR:$GIT_CREDS_PSW@github.com/$GIT_CREDS_USR/rsvpapp-helm-cicd.git
             '''
           }
-          sh 'wget https://github.com/argoproj/argo-cd/releases/download/v2.4.2/argocd-linux-amd64'
+          sh 'wget -q https://github.com/argoproj/argo-cd/releases/download/v2.4.2/argocd-linux-amd64'
           sh 'mv argocd-linux-amd64 argocd'
           sh 'chmod +x argocd'
           sh 'mv argocd /usr/local/bin'

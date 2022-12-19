@@ -94,7 +94,7 @@ spec:
           sh 'argocd login  $ARGOCD_SERVER --username $ARGOCD_CREDS_USR --password $ARGOCD_CREDS_PSW --grpc-web '
           sh 'argocd app sync rpsvpapp'
           sh 'argocd version'
-          sh 'argocd app get rpsvpapp --output json | jq -r ".status.sync.status"'
+          sh 'argocd app get rpsvpapp --output json | yq -r ".status.sync.status"'
         }
       }
     }

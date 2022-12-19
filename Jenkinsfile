@@ -90,11 +90,10 @@ spec:
           sh 'mv argocd-linux-amd64 argocd'
           sh 'chmod +x argocd'
           sh 'mv argocd /usr/local/bin'
-//           sh 'argocd login  ${env.ARGOCD_SERVER} --username ${env.ARGOCD_CREDS_USR} --password ${env.ARGOCD_CREDS_PSW} --grpc-web '
-          sh 'echo  $ARGOCD_CREDS_USR '
-          sh 'echo ${env.ARGOCD_SERVER} '
-          sh 'argocd version'
+          sh 'echo logging to $ARGOCD_SERVER as $ARGOCD_CREDS_USR '
+          sh 'argocd login  $ARGOCD_SERVER --username $ARGOCD_CREDS_USR --password $ARGOCD_CREDS_PSW --grpc-web '
           sh 'argocd app sync rpsvpapp'
+          sh 'argocd version'
           sh 'argocd app get rpsvpapp --output json | jq -r ".status.sync.status"'
         }
       }

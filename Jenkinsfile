@@ -29,7 +29,7 @@ spec:
         }
     }
   environment {
-      IMAGE_REPO = "<DOCKERHUB_USER>/rsvp"
+      IMAGE_REPO = "librehw/rsvp"
       // Instead of DOCKERHUB_USER, use your Dockerhub name
   }
   stages {

@@ -90,7 +90,7 @@ spec:
           sh 'mv argocd-linux-amd64 argocd'
           sh 'chmod +x argocd'
           sh 'mv argocd /usr/local/bin'
-          sh 'argocd login  ${env.ARGOCD_SERVER) '
+          sh 'argocd login  argo.iab.ai'
 //           --username ${env.ARGOCD_CREDS_USR) --password ${env.ARGOCD_CREDS_PSW) --grpc-web'
           sh 'echo  ${env.ARGOCD_CREDS_USR) '
           sh 'argocd version'

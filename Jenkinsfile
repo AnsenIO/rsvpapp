@@ -51,10 +51,10 @@ spec:
     stage('Deploy') {
       environment {
         GIT_CREDS = credentials('b009a837-3a84-4d48-811f-5bde4bddf969')
-        ARGOCD_CREDS = credentials('argocdiabai')
         HELM_GIT_REPO_URL = "github.com/ansenio/rsvpapp-helm-cicd.git"
         GIT_REPO_EMAIL = 'andrea.sannuto@gmx.com'
         GIT_REPO_BRANCH = "master"
+        ARGOCD_CREDS = credentials('argocdiabai')
 
        // Update above variables with your user details
       }
@@ -85,7 +85,8 @@ spec:
               git commit -m 'Triggered Build'
               git push https://$GIT_CREDS_USR:$GIT_CREDS_PSW@github.com/$GIT_CREDS_USR/rsvpapp-helm-cicd.git
             '''
-            try {
+          }
+        try {
                       sh 'wget https://github.com/argoproj/argo-cd/releases/download/v2.4.2/argocd-linux-amd64'
                       sh 'mv argocd-linux-amd64 argocd'
                       sh 'chmod +x argocd'
@@ -96,7 +97,6 @@ spec:
                   } catch (Exception e) {
                       sh 'echo $e'
                   }
-          }
         }
       }
     }

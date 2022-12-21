@@ -15,7 +15,7 @@ spec:
   - name: docker
     env:
     - name: DOCKER_HOST
-      value: 127.0.0.1
+      value: docker:4243
     image: docker:18.09
     command:
     - cat

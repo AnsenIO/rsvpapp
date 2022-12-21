@@ -1,6 +1,6 @@
 FROM python:3.8
-COPY . /usr/src/app
-WORKDIR /usr/src/app
+COPY . /app
+WORKDIR /app
 ENV LINK http://www.meetup.com/iabai/
 ENV TEXT1 IABAI
 ENV TEXT2 IT Solutions

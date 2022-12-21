@@ -6,7 +6,7 @@ ENV TEXT1 IABAI
 ENV TEXT2 IT Solutions
 ENV LOGO https://www.iab.ai/assets/iabai_logo_small.png
 ENV COMPANY IABAI SaS
-RUN curl https://pypi.org/simple/flask/
+RUN  curl -v https://pypi.org/simple/pip/
 RUN ls -lah
 RUN python3 -m venv /opt/venv && \
     /opt/venv/bin/pip install pip --upgrade && \

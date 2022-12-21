@@ -1,4 +1,4 @@
-FROM python:3.10
+FROM python
 COPY . /app
 WORKDIR /app
 ENV LINK http://www.meetup.com/iabai/

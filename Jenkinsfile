@@ -15,7 +15,7 @@ spec:
   - name: docker
     env:
     - name: DOCKER_HOST
-      value: localhost
+      value: jenkins-ag:2375
     image: docker:18.09
     command:
     - cat
